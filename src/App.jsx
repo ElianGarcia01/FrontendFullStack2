@@ -68,6 +68,8 @@ const libros = [
 
 function App() {
 
+  console.log("Se renderizo el componente App");
+
 
   return (
     <>
