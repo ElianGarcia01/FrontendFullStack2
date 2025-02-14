@@ -1,8 +1,6 @@
-import SearchBar from "./SearchBar";
+import SearchBar from "./SearchBar"
 
 function Navbar({search, handleSearchChange}) {
-
-    console.log("Se renderizo el componente NavBar");
     
     return (
         <nav >
@@ -21,4 +19,4 @@ function Navbar({search, handleSearchChange}) {
     );
 }
 
-export default Navbar;
+export default Navbar

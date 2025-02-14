@@ -1,5 +1,4 @@
 function SearchBar({search, handleSearchChange}) {
-    console.log("Se renderizo el componente SearchBar")
     
     return (
       <div className="flex justify-center h-10 w-full">
