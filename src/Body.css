@@ -1,0 +1,5 @@
+.skeleton-container {
+    background-color: #f0f0f0; /* Color de fondo para ayudar a ver los skeletons */
+    border: 1px solid #ddd; /* Borde temporal para ver el contorno del contenedor */
+  }
+  
