@@ -11,7 +11,7 @@ function Navbar() {
 
     return (
         <nav >
-            <ul className="flex justify-between py-4 px-8 text-stone-300 bg-green-800">
+            <ul className="flex justify-between p-8 bg-black">
                 {routes.map((route) => (
                     <li key={route.path}>
                         <NavLink
@@ -20,7 +20,7 @@ function Navbar() {
                                 isActive }) =>
                             (isActive ?
                                 "text-gray-400" :
-                                "text-stone-300")}
+                                "text-white hover:text-red-500")}
                         >
                             {route.name}
                         </NavLink>
