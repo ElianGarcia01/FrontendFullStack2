@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { addToCart } from "../store/actions/cartActions";
 import QuantityControls from "./components/QuantityControls";
+import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons/faCircleExclamation";
 
 function Body() {
   // Estados globales
@@ -48,6 +49,7 @@ function Body() {
           <p>
             El libro no ha sido encontrado. <br />
             Intenta una nueva busqueda
+            <FontAwesomeIcon icon={faCircleExclamation} className="ml-2" />
           </p>
         </div>
       </div>
