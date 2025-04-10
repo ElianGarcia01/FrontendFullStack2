@@ -1,15 +1,11 @@
-import './App.css'
-import Home from './pages/Home'
-import Agents from './pages/Agents'
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import StandarLayout from './layouts/StandarLayaout'
-import SecondLayout from './layouts/SecondLayout'
-import NotFound from "./pages/NotFound"
-import Details from './pages/Details'
-
+import "./App.css";
+import Home from "./pages/Home";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import StandarLayout from "./layouts/StandarLayaout";
+import NotFound from "./pages/NotFound";
+import Cart from "./pages/Cart";
 
 function App() {
-
   const router = createBrowserRouter([
     {
       path: "/",
@@ -17,38 +13,24 @@ function App() {
       children: [
         {
           path: "",
-          element: <Home />
+          element: <Home />,
         },
         {
-          path: "home",
-          element: <Home />
+          path: "cart",
+          element: <Cart />,
         },
-        {
-          path: "agents",
-          element: <Agents />
-        }
-      ]
-    },
-    {
-      path: "/",
-      element: <SecondLayout />,
-      children: [
         {
           path: "*",
-          element: <NotFound />
+          element: <NotFound />,
         },
-        {
-          path: "details",
-          element: <Details />
-        }
-      ]
-    }
+      ],
+    },
 
-  ])
+  ]);
   return (
     <>
       <RouterProvider router={router}></RouterProvider>
     </>
-  )
+  );
 }
-export default App
+export default App;

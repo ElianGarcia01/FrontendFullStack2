@@ -33,7 +33,7 @@ function SearchBar() {
   return (
     <>
       <div className="my-6 w-full max-w-md mx-auto">
-        <div className="w-full relative flex flex-col gap-10 justify-center items-center">
+        <div className="w-full relative flex flex-col gap-10 justify-start items-center">
           {/* Input de busqueda por texto */}
           <label htmlFor="search" className="sr-only">
             Buscar libros
@@ -43,7 +43,7 @@ function SearchBar() {
             placeholder="Buscar libros..."
             value={search}
             onChange={(e) => dispatch(changeSearch(e.target.value))}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
+            className="w-full px-4 shadow-2xl py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
           <svg
             className="absolute right-3 h-5 w-5 text-gray-400"

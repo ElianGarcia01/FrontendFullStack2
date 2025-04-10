@@ -1,8 +1,9 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { changeSearch, changeCategory } from "../actions/shopActios";
 
-const intialBooks = [
+const initialBooks = [
   {
+    id: 1,
     nombre: "El Principito",
     descripcion:
       "Una historia clásica sobre un niño de otro planeta que aprende sobre la vida y la amistad.",
@@ -12,6 +13,7 @@ const intialBooks = [
     category: "Fábula",
   },
   {
+    id: 2,
     nombre: "1984",
     descripcion:
       "Una novela distópica que explora un futuro totalitario donde el Gran Hermano todo lo ve.",
@@ -21,6 +23,7 @@ const intialBooks = [
     category: "Distopía",
   },
   {
+    id: 3,
     nombre: "Cien años de soledad",
     descripcion:
       "Un relato mágico sobre la familia Buendía en el pueblo ficticio de Macondo.",
@@ -30,6 +33,7 @@ const intialBooks = [
     category: "Realismo mágico",
   },
   {
+    id: 4,
     nombre: "Don Quijote de la Mancha",
     descripcion:
       "Las aventuras de un caballero que confunde la realidad con la fantasía.",
@@ -39,6 +43,7 @@ const intialBooks = [
     category: "Clásico",
   },
   {
+    id: 5,
     nombre: "Los Juegos del Hambre",
     descripcion:
       "Una historia de supervivencia y revolución en una sociedad distópica.",
@@ -48,6 +53,7 @@ const intialBooks = [
     category: "Juvenil",
   },
   {
+    id: 6,
     nombre: "Harry Potter y la piedra filosofal",
     descripcion:
       "El inicio de la saga del joven mago Harry Potter en Hogwarts.",
@@ -56,6 +62,7 @@ const intialBooks = [
     category: "Fantasía",
   },
   {
+    id: 7,
     nombre: "Crónica de una muerte anunciada",
     descripcion:
       "Un relato periodístico sobre un asesinato que todo el pueblo sabía que ocurriría.",
@@ -65,6 +72,7 @@ const intialBooks = [
     category: "Narrativa",
   },
   {
+    id: 8,
     nombre: "Matar a un ruiseñor",
     descripcion:
       "Una historia sobre justicia y racismo en el sur de Estados Unidos.",
@@ -73,6 +81,7 @@ const intialBooks = [
     category: "Drama",
   },
   {
+    id: 9,
     nombre: "El Hobbit",
     descripcion:
       "Las aventuras de Bilbo Bolsón en su viaje para recuperar un tesoro robado por un dragón.",
@@ -81,6 +90,7 @@ const intialBooks = [
     category: "Fantasía",
   },
   {
+    id: 10,
     nombre: "Orgullo y prejuicio",
     descripcion:
       "Una historia de amor y diferencias sociales en la Inglaterra del siglo XIX.",
@@ -90,16 +100,15 @@ const intialBooks = [
   },
 ];
 
+
 const initialState = {
-  books: intialBooks,
+  books: initialBooks,
   category: "Todas",
   search: "",
 };
 
 export const shopReducer = createReducer(initialState, (builder) => {
   builder.addCase(changeCategory, (state, action) => {
-    console.log("se ha cambiado la categoria", action);
-
     state.category = action.payload;
   });
 
