@@ -2,8 +2,8 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const routes = [
-  { path: "/", name: "StoreBooks" },
-];
+  { path: "/", name: "ClothingShop" },
+]
 
 function Navbar() {
   // Acceder al estado global
@@ -38,4 +38,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default Navbar

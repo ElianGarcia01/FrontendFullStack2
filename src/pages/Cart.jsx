@@ -8,7 +8,7 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons/faCartShopping
 const Cart = () => {
   const products = useSelector((state) => state.cart);
   const total = Object.values(products).reduce(
-    (acc, product) => acc + product.precio * product.quantity,
+    (acc, product) => acc + product.price * product.quantity,
     0
   );
 
@@ -47,7 +47,7 @@ const Cart = () => {
             return (
               <tr key={product.id}>
                 <td style={styles.tableCell} className="flex flex-col">
-                  {product.nombre}
+                  {product.title}
                   <button
                     className="cursor-pointer hover:text-red-500"
                     onClick={() => handleDeleteToCart(product)}
@@ -58,9 +58,9 @@ const Cart = () => {
                 <td style={styles.tableCell}>
                   <QuantityControls book={product} />
                 </td>
-                <td style={styles.tableCell}>${product.precio.toFixed(2)}</td>
+                <td style={styles.tableCell}>${product.price.toFixed(2)}</td>
                 <td style={styles.tableCell}>
-                  ${(product.quantity * product.precio).toFixed(2)}
+                  ${(product.quantity * product.price).toFixed(2)}
                 </td>
               </tr>
             );

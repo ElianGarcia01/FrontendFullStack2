@@ -2,21 +2,25 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { addToCart } from "../store/actions/cartActions";
 import QuantityControls from "./components/QuantityControls";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons/faCircleExclamation";
 
 function Body() {
   // Estados globales
-  const { books, category, search } = useSelector((state) => state.shop);
+  const { productsState, category, search } = useSelector(
+    (state) => state.shop
+  );
+
+  const books = productsState.products;
 
   // Filtros de busqueda combinados
   const filteredBooks = books.filter((item) => {
     const matchesCategory =
       category.toLowerCase() === "todas" ||
       item.category.toLowerCase() === category.toLowerCase();
-    const matchesSearch = item.nombre
+    const matchesSearch = item.title
       .toLowerCase()
       .includes(search.toLowerCase());
     return matchesCategory && matchesSearch;
@@ -74,7 +78,7 @@ function Body() {
 
 function Card({ book }) {
   // Variable para precio del libro
-  let precioType = "$" + book.precio;
+  let precioType = "$" + book.price;
 
   const dispatch = useDispatch();
   const bookInCart = useSelector((state) => state.cart[book.id]);
@@ -89,30 +93,27 @@ function Card({ book }) {
     duration-400 ease-in-out transform  hover:shadow-2xl`}
     >
       <div className="flex flex-wrap justify-center items-center h-12 w-full rounded-lg bg-gray-300">
-        <h2 className="text-center text-md">{book.nombre.slice(0, 24)}</h2>
+        <h2 className="text-center text-md">{book.title.slice(0, 24)}</h2>
       </div>
 
       <div className="flex justify-center items-center">
-        {book.imagen && (
-          <img src={book.imagen} alt={book.imagen} className="h-52 w-auto" />
+        {book.image && (
+          <img src={book.image} alt={book.image} className="h-52 w-auto" />
         )}
       </div>
 
       <div className="relative flex flex-col justify-between h-full">
-        <p className="text-xs mb-3">{book.descripcion.slice(0, 50)}...</p>
-        <span className="self-end text-xs text-red-500">{precioType}</span>
+        <p className="text-xs mb-3">{book.description.slice(0, 50)}...</p>
+        <span className="self-center text-lg text-red-500">{precioType}</span>
         {bookInCart ? (
           <QuantityControls book={bookInCart} />
         ) : (
           <button
-          className="w-full cursor-pointer hover:text-blue-500"
-          onClick={() => handleAddToCart()}
+            className="w-full cursor-pointer hover:text-blue-500"
+            onClick={() => handleAddToCart()}
           >
-            Añadir al carrito <br />
-            <FontAwesomeIcon
-              icon={faCartShopping}
-              className="text-lg"
-            />
+            <FontAwesomeIcon icon={faCartPlus} className="ml-2" /> <br />
+            Añadir al carrito
           </button>
         )}
       </div>
