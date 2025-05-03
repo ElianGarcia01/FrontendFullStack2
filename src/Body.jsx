@@ -3,17 +3,20 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
-import { addToCart } from "../store/actions/cartActions";
+import { addToCart, removeFromCart } from "../store/actions/cartActions";
 import QuantityControls from "./components/QuantityControls";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons/faCircleExclamation";
+import { deleteProducts, updateProducts } from "../store/actions/shopActios";
+import { statusHttp } from "../store/reducers/shopReducer";
+import { useState } from "react";
 
 function Body() {
   // Estados globales
   const { productsState, category, search } = useSelector(
     (state) => state.shop
   );
-
   const books = productsState.products;
+  const statusState = productsState.status;
 
   // Filtros de busqueda combinados
   const filteredBooks = books.filter((item) => {
@@ -26,9 +29,7 @@ function Body() {
     return matchesCategory && matchesSearch;
   });
 
-  const isLoading = books.length === 0;
-
-  if (isLoading) {
+  if (statusState === statusHttp.PENDING) {
     return (
       <div className="flex flex-wrap justify-center gap-6 p-8">
         {Array(9)
@@ -83,8 +84,35 @@ function Card({ book }) {
   const dispatch = useDispatch();
   const bookInCart = useSelector((state) => state.cart[book.id]);
 
+  const [deleteState, setDeleteState] = useState(statusHttp.IDLE);
+  const [updateState, setUpdateState] = useState(statusHttp.IDLE);
+
   function handleAddToCart() {
     dispatch(addToCart(book));
+  }
+
+  async function handleDeleteProduct(id) {
+    try {
+      setDeleteState(statusHttp.PENDING);
+      await dispatch(deleteProducts(id)).unwrap();
+      setDeleteState(statusHttp.SUCCED);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch(removeFromCart(book));
+      setDeleteState(statusHttp.IDLE);
+    }
+  }
+
+  async function handleUpdateProduct(book) {
+    try {
+      setUpdateState(statusHttp.PENDING);
+      await dispatch(updateProducts(book)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setUpdateState(statusHttp.IDLE);
+    }
   }
 
   return (
@@ -102,7 +130,7 @@ function Card({ book }) {
         )}
       </div>
 
-      <div className="relative flex flex-col justify-between h-full">
+      <div className="relative flex flex-col justify-between items-center h-full">
         <p className="text-xs mb-3">{book.description.slice(0, 50)}...</p>
         <span className="self-center text-lg text-red-500">{precioType}</span>
         {bookInCart ? (
@@ -114,6 +142,28 @@ function Card({ book }) {
           >
             <FontAwesomeIcon icon={faCartPlus} className="ml-2" /> <br />
             Añadir al carrito
+          </button>
+        )}
+        {deleteState === statusHttp.PENDING ? (
+          <div>Eliminando...</div>
+        ) : (
+          <button
+            className="w-1/2 cursor-pointer bg-red-500 hover:bg-red-700
+                  text-white mt-2 rounded-2xl"
+            onClick={() => handleDeleteProduct(book.id)}
+          >
+            Eliminar
+          </button>
+        )}
+        {updateState === statusHttp.PENDING ? (
+          <div>Updating...</div>
+        ) : (
+          <button
+            className="w-1/2 cursor-pointer bg-green-500 hover:bg-green-700
+                  text-white mt-2 rounded-2xl"
+            onClick={() => handleUpdateProduct(book)}
+          >
+            Update
           </button>
         )}
       </div>

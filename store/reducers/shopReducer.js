@@ -3,9 +3,11 @@ import {
   changeSearch,
   changeCategory,
   getProducts,
+  deleteProducts,
+  updateProducts
 } from "../actions/shopActios"
 
-const statusHttp = {
+export const statusHttp = {
   IDLE: "idle",
   SUCCED: "succes",
   FAILE: "failed",
@@ -52,4 +54,16 @@ export const shopReducer = createReducer(initialState, (builder) => {
     productsState.status = statusHttp.PENDING;
     productsState.error = action.error;
   });
+
+  builder.addCase(deleteProducts.fulfilled, (state, action) => {
+    console.log("La eliminacion fue exitosa");
+    const productsState = state.productsState;
+    productsState.products = productsState.products.filter(product => product.id !== action.payload.id)
+  })
+
+  builder.addCase(updateProducts.fulfilled, (state, action) => {
+    console.log("La actualizacion fue exitosa");
+    const productsState = state.productsState;
+    productsState.products = productsState.products.map(product => product.id === action.payload.id ? action.payload : product)
+  })
 });
